@@ -28,6 +28,7 @@ export class HttpService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    // dsadasdasdasd
     console.log('dasda');
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occured
