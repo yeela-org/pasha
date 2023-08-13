@@ -11,3 +11,4 @@ dasdad3
 cant seedas
 dasdasdasdasdasdasfar etet
 cmObj
+cmObj.automations
