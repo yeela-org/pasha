@@ -3,6 +3,8 @@ manifest:
   version: 1.0
 automations:
   suggest_code_experts:
+    on:
+      - commit
     if: 
       - {{ pr.labels | match(term='suggest-reviewer') | some }}
     run:
