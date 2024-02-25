@@ -12,9 +12,7 @@
 # +----------------------------------------------------------------------------+
 
 # Variables: https://docs.gitstream.cm/context-variables/
-#   Filters: https://docs.gitstream.cm/filter-functions/
-#   Actdions: https://docs.gitstream.cm/automation-actions/dxsadss
-s
+dadas
 manifest:
   version: 1.0
 
