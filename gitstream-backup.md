@@ -13,7 +13,7 @@
 
 # Variables: https://docs.gitstream.cm/context-variables/
 #   Filters: https://docs.gitstream.cm/filter-functions/
-#   Actions: https://docs.gitstream.cm/automation-actions/
+#   Actions: https://docs.gitstream.cm/automation-actions/dsadsad
 
 manifest:
   version: 1.0
