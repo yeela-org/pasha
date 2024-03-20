@@ -1,5 +1,5 @@
 # pasha
-misha test regex in ignore repos4
+misha test regex in ignore repos5
 fsafafadf
 NEW
 debug
