@@ -1,6 +1,6 @@
 # pasha
 fsafafadf
-NEW
+NEWfdfsd
 debug
 merge-commit-new
 ffsdfsd
