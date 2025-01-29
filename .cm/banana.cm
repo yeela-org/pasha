@@ -18,7 +18,3 @@ automations:
         args:
           label: "🎖️ Roadmap"
           color: FFFECB
-      - action: add-label@v1
-        args:
-          label: "test"
-          color: 4287f5
