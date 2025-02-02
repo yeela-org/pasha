@@ -16,7 +16,6 @@ fsdfsd
 debug
 gdfdfnuuu
 jkjk
-jjjj
-semek
+jjjjfdgdf
 dasdasdasdasd
 fsdfsdasda
