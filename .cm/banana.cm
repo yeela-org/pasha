@@ -5,20 +5,12 @@ manifest:
 
 automations:
   # Add a label that indicates how many minutes it will take to review the PR.
-  check_lables_banana: 
-    if:
-      -  true
-    run:
+  approve_ariel_prs:
+    if: 
+      - {{ pr.author == 'yeelali14' }}
+    run: 
+      - action: approve@v1
       - action: add-comment@v1
-      # etr is defined in the last section of this example
         args:
           comment: |
-            triggers
-      - action: add-label@v1
-        args:
-          label: "🎖️ Roadmap"
-          color: FFFECB
-      - action: add-label@v1
-        args:
-          label: "test"
-          color: 4287f5
+            This PR has been approved because it created by repo admin
