@@ -13,3 +13,4 @@ asdasfsdfsd
 okgrege
 dsfds
 fefefe
+isFlaggedUser
