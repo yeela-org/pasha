@@ -10,4 +10,4 @@ upstream        git@github.com:yeela-org/pasha.git (fetch)
 upstream        git@github.com:yeela-org/pasha.git (push)
 ```
 
-this is the command `git flow feature start my-feature`
+this is the command `git flow feature start my-feature` with `origin` only
