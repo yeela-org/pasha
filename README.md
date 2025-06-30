@@ -1,13 +1,11 @@
 # pasha
-fsafafadf
-NEW
-debug
-merge-commit-new
-ffsdfsd
-merge-commit-prod
-dasdasdasdsafsdfs
-dasjkjkfsdfsddas
-sasadsadf
-sdwwwwwdsdsddasdjkjkd
-asdasfsdfsd
-okgrege
+
+currently status is this:
+
+```
+git remote -v
+origin  git@github.com:MishaKav/pasha.git (fetch)
+origin  git@github.com:MishaKav/pasha.git (push)
+upstream        git@github.com:yeela-org/pasha.git (fetch)
+upstream        git@github.com:yeela-org/pasha.git (push)
+```
