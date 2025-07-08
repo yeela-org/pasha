@@ -1,6 +1,7 @@
 # pasha
 
 currently status is this:sdf a
+new commit2
 
 ```
 git remote -v
