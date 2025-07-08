@@ -1,6 +1,6 @@
 # pasha
 
-currently status is this:
+currently status is this:sdf a
 
 ```
 git remote -v
