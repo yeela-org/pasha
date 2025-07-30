@@ -21,6 +21,8 @@ export class HttpService {
     .pipe(
       finalize(() => {
         //TODO: loading
+        console.log(url);
+        jljljl
       }),
       catchError((err) => {
         return this.handleError(err);
