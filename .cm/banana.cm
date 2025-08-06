@@ -5,7 +5,7 @@ manifest:
 
 automations:
   # Add a label that indicates how many minutes it will take to review the PR.
-  approve_ariel_prs_1:
+  approve_ariel_prs_2:
     if: 
       - {{ pr.author == 'yeelali14' }}
     run: 
