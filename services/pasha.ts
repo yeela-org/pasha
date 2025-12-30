@@ -4,7 +4,8 @@ export async function callAgentService(payload: object):<any> {
   console.debug("Sending payload to agent:", payload);
 
   try {
-    const response = await fetch(url, {
+    // TODO - yeela: fix this
+    const response = fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -13,7 +14,7 @@ export async function callAgentService(payload: object):<any> {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
+      const errorText = response.text();
       throw new Error(`Request failed with status ${response.status}: ${errorText}`);
     }
 
