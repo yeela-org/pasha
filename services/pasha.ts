@@ -4,6 +4,7 @@ export async function callAgentService(payload: object):<any> {
   console.debug("Sending payload to agent:", payload);
 
   try {
+    // TODO - yeela: fix this
     const response = fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
