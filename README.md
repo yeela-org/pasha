@@ -1,1 +1,2 @@
 # pasha
+architecure check
