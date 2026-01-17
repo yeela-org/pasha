@@ -1,0 +1,33 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+is:
+  # Checks if PR targets the default branch ('main').
+  pr_target_the_default_branch: >
+    {{ pr.target | match(term='main') }}
+
+
+automations:
+  test_comment:
+    if:
+      - true
+    run:
+      # 1. Adds a label for tracking/evaluation purposes
+      - action: add-label@v1
+        args:
+          label: 'cm-evaluation'
+          color: '#818289'
+
+
+      # 2. Adds a comment confirming the target branch status
+      - action: add-comment@v1
+        args:
+          comment: |
+            This is a simple test comment for CM automation evaluation:
+
+            {% set status = 'is' if pr_target_the_default_branch else 'is NOT' %}
+            Just confirming that this PR **{{ status }}** targeting the default branch: **`{{ pr.target }}`**.
+
+            ---
+            You can safely ignore this comment :) 
