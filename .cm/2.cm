@@ -1,0 +1,122 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+automations:
+  debug-comment:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            Debug Info:
+
+            Is branch name automated? {{ is.branch_name_automated }}
+            Is PR target the default branch? {{ is.pr_target_the_default_branch }}
+            Is bot PR? {{ is.bot_pr }}
+
+            Is change to safe files only? {{ is.change_to_safe_files_only }}
+            Is every commit automated? {{ is.every_commit_automated }}
+
+            Is PR title automated? {{ is.pr_title_automated }}
+            Is PR with NPM success label? {{ is.pr_with_npm_success_label }}
+            Is PR with automated update labels? {{ is.pr_with_automated_update_labels }}
+            Is PR with no NPM blockers? {{ is.pr_with_no_npm_blockers }}
+
+            Is PR blocked by policy? {{ is.pr_blocked_by_policy }}
+
+            Is PR made by bot? {{ is.made_by_bot }}
+            Is PR made by me? {{ is.made_by_me }}
+
+  pr_comment:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            {{ "## ⚠️ Auto-Merge Blocked" | escape }}
+            This package update PR could not be automatically merged due to the following policy violations:
+
+            {% if not is.change_to_safe_files_only %}
+            {{ "### ❌ Unsafe Files Present" | escape }}
+            - This PR contains file changes outside of the authorized dependency files (like `package.json` or `package-lock.json`).
+            - Automated updates must **only** include safe dependency files. Source code changes are not allowed in this type of PR.
+            
+            {% endif %}
+            {% if not is.pr_target_the_default_branch %}
+            {{ "### ❌ Wrong Target Branch" | escape }}
+            - This PR is currently targeting **`{{ pr.target }}`**.
+            - Automated updates are only allowed into the default branches (`main` or `master`). Please change the base branch.
+            
+            {% endif %}
+            {% if not is.pr_with_npm_success_label %}
+            {{ "### ❌ Dependency Installation Issue" | escape }}
+            - This PR contains a blocker label (`npm-force-install` or `npm-install-failed`).
+            - Such labels indicate a problem with automatic dependency installation and require adjustment before they can be merged.
+            {% endif %}
+
+            ---
+            Manual resolution is required. Please review the PR and take appropriate action.
+
+  auto_merge_safe_bot_updates:
+    if:
+      # 1. Branch/Author Checks
+      - {{ is.branch_name_automated }}
+      - {{ is.pr_target_the_default_branch }}
+      # - is.bot_pr
+
+      # # 2. Commit/File Checks
+      - {{ is.change_to_safe_files_only }}
+      - {{ is.every_commit_automated }}
+      
+      # # 3. Metadata Checks
+      - {{ is.pr_title_automated }}
+      - {{ is.pr_with_npm_success_label }}
+      - {{ is.pr_with_automated_update_labels }}
+      - {{ is.pr_with_no_npm_blockers }}
+
+    run:
+      - action: approve@v1
+      - action: merge@v1
+        args:
+          squash_on_merge: true
+
+is:
+  # Checks if the PR only contains changes to the specified files (package.json, package-lock.json, CHANGELOG*.md, subdirectories included)
+  change_to_safe_files_only: {{ files | match(regex=r/(package\.json|package-lock\.json|CHANGELOG.*\.md)$/) | every }}
+
+  # Checks if every commit message contains the string '[automated]'
+  every_commit_automated: {{ branch.commits.messages | match(term='[automation]') | every }}
+  
+  # Checks if branch name matches the 'chore/update-packages-*-bot' pattern
+  branch_name_automated: {{ branch.name | match(regex=r/^chore\/update-packages.*-bot$/) }}
+    
+  # Checks if author name includes '[bot]' or is a known bot account
+  bot_pr: {{ pr.author | includes(term='[bot]') }}
+
+  # Checks if PR targets default branch ('main')
+  pr_target_the_default_branch: {{ pr.target | match(term='main') }}
+
+  # Checks if PR title includes '[automated]'
+  pr_title_automated: {{ pr.title | includes(term='[automation]') }}
+
+  # Checks if PR labels include 'npm-install-success' 
+  pr_with_npm_success_label: {{ pr.labels | match(term='npm-install-success') | some }}
+
+  # Checks if PR labels include both 'automation-bot' and 'dependencies'
+  pr_with_automated_update_labels: {{ pr.labels | filter(list=['automation-bot', 'dependencies']) | match(list=['automation-bot', 'dependencies']) | every }}
+
+  # Checks if PR labels do NOT include 'npm-force-install' or 'npm-install-failed'
+  pr_with_no_npm_blockers: {{ pr.labels | match(list=['npm-force-install', 'npm-install-failed']) | nope }}
+
+  # Helper for the comment action: checks if the PR has any policy blockers
+  pr_blocked_by_policy: {{ not change_to_safe_files_only or not is.pr_target_the_default_branch or not is.pr_with_npm_success_label }} 
+
+  # Additional debug helpers
+  made_by_bot: {{ is.branch_name_automated and is.every_commit_automated and is.pr_title_automated and is.pr_with_automated_update_labels }}
+
+  made_by_me: {{ not is.made_by_bot }}
+
+  
