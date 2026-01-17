@@ -1,0 +1,43 @@
+#
+#  Refer GitStream AI Code Review to cursor instructions to reuse the same set of rules.
+# Status: Experimental
+#
+manifest:
+  version: 1.0
+
+automations:
+  # Pass 1: High-speed terminology scan (Highest Volume of Issues)
+  terminology_audit:
+    if:
+      - {{ pr.includes.docs }}
+    run:
+      - action: code-review@v1
+        args:
+          guidelines: |
+            Scan every changed line for the "Mandatory Terminology" table in .cm/style-rules.md.
+            Report every instance of "application", "back-end", "allows you to", and "utilize".
+            Ensure "you" is used instead of "user".
+
+  # Pass 2: Structural and Formatting (Table/List syntax)
+  formatting_audit:
+    if:
+      - {{ pr.includes.docs }}
+    run:
+      - action: code-review@v1
+        args:
+          guidelines: |
+            Check all AsciiDoc syntax in changed files. 
+            Ensure tables have [cols] and options="header".
+            Verify description lists use double colons (::) and backticks for terms.
+
+  # Pass 3: Technical Clarity & Content Placement
+  logic_audit:
+    if:
+      - {{ pr.includes.docs }}
+    run:
+      - action: code-review@v1
+        args:
+          guidelines: |
+            Verify "Content Placement" rules in .cm/style-rules.md. 
+            Ensure version-specific info is NOT in reference pages.
+            Check that all technical properties specify their source (API/Config).
