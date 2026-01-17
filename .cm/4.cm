@@ -1,0 +1,77 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+automations:
+  pr_comment:
+    if:
+      - {{ is.automated_update }}
+      - {{ is.blocked_by_policy_violation }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            This package update PR could not be automatically merged due to the following violations:
+
+            {% if not is.change_to_safe_files_only %}
+            - This PR contains file changes outside of the authorized dependency files.
+            {% endif %}
+            {% if not is.pr_target_default_branch %}
+            - This PR is currently targeting **`{{ pr.target }}`**. Automated updates are only allowed into the default branch.
+            {% endif %}
+            {% if not is.pr_with_npm_success_label %}
+            - There were problems during automatic dependency installation which require adjustment before updates can be merged.
+            {% endif %}
+            {% if is.pr_with_major_dependency_bump %}
+            - This PR includes a major version dependency update.
+            {% endif %}
+
+            ---
+            Manual resolution is required. Please review the PR and take appropriate action.
+
+  auto_merge_safe_bot_updates:
+    if:
+      - {{ is.automated_update }}
+      - {{ not is.blocked_by_policy_violation }}
+
+    run:
+      - action: approve@v1
+      - action: merge@v1
+        args:
+          squash_on_merge: true
+
+is:
+  # Checks if the PR only contains changes to the specified files (package.json, package-lock.json, CHANGELOG*.md)
+  change_to_safe_files_only: {{ files | match(regex=r/(package\.json|package-lock\.json|CHANGELOG.*\.md)$/) | every }}
+
+  # Checks if every commit message contains the string '[automated]'
+  every_commit_automated: {{ branch.commits.messages | match(term='[automated]') | every }}
+
+  # Checks if branch name matches the 'chore/update-packages-*-bot' pattern
+  branch_name_automated: {{ branch.name | match(regex=r/^chore\/update-packages.*-bot$/) }}
+
+  # Checks if author name was 'github-actions' or if it includes '[bot]'
+  pr_author_bot: {{ pr.author == 'github-actions' or pr.author | includes(term='[bot]') }}
+
+  # Checks if PR targets default branch ('main')
+  pr_target_default_branch: {{ pr.target | match(term='main') }}
+
+  # Checks if PR title includes '[automated]'
+  pr_title_automated: {{ pr.title | includes(term='[automated]') }}
+
+  # Checks if PR labels include 'npm-install-success'
+  pr_with_npm_success_label: {{ pr.labels | match(term='npm-install-success') | some }}
+
+  # Checks if PR labels include 'major-bump' (indicating a major version dependency update)
+  pr_with_major_dependency_bump: {{ pr.labels | match(term='major-bump') | some }}
+
+  # Checks if PR labels include both 'automation-bot' and 'dependencies'
+  pr_with_automated_update_labels: {{ pr.labels | filter(list=['automation-bot', 'dependencies']) | match(list=['automation-bot', 'dependencies']) | every }}
+
+  # Higher level helpers combining multiple checks
+
+  # First combined check: verify whether the PR in question is an automated update
+  automated_update: {{ is.pr_author_bot and is.branch_name_automated and is.every_commit_automated and is.pr_title_automated and is.pr_with_automated_update_labels }}
+
+  # Second combined check: verify if the PR has any policy blockers
+  blocked_by_policy_violation: {{ not is.change_to_safe_files_only or not is.pr_target_default_branch or not is.pr_with_npm_success_label or is.pr_with_major_dependency_bump }}
