@@ -1,3 +1,1 @@
 # pasha
-
-clear readme
