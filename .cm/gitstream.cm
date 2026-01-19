@@ -1,0 +1,14 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+automations:
+  welcome:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            Thank you for your contribution! 🎉
