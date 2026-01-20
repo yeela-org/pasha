@@ -32,7 +32,7 @@ export class HttpService {
     return result;
   }
 
-  post(url: string, data: any): Observable<any> {
+  postCheck(url: string, data: any): Observable<any> {
     console.log('Posting to:', endpointUrl);
     return this.http.post(url, data, httpOptions)
       .pipe(
