@@ -36,7 +36,7 @@ export class HttpService {
         }));
   }
 
-  delete2(url: string, id: any): Observable<any> {
+  delete2fhskdjhf(url: string, id: any): Observable<any> {
     if (id != null) {
       const deleteUrl = `${url}/${id}`;
       return this.http.delete(deleteUrl, httpOptions);
