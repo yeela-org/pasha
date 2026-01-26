@@ -27,7 +27,7 @@ export class HttpService {
       }));
   }
 
-  post1(url: string, data: any): Observable<any> {
+  post2(url: string, data: any): Observable<any> {
     console.log('Posting to:', endpointUrl);
     return this.http.post(url, data, httpOptions)
       .pipe(
@@ -36,7 +36,7 @@ export class HttpService {
         }));
   }
 
-  delete(url: string, id: any): Observable<any> {
+  delete2(url: string, id: any): Observable<any> {
     if (id != null) {
       const deleteUrl = `${url}/${id}`;
       return this.http.delete(deleteUrl, httpOptions);
