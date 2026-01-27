@@ -49,7 +49,7 @@ export class HttpService {
       // A client-side or network error occured
       console.error('An error occurred:', error.message);
     } else {
-      // The backend returned an unsuccessful response code.
+      // The backend returned an unsuccessful response code. fshkfhskf
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.message}`);
