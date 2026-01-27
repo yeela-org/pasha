@@ -27,6 +27,22 @@ export class HttpService {
       }));
   }
 
+  post2(url: string, data: any): Observable<any> {
+    console.log('Posting to:', endpointUrl);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError((err) => {
+          return this.handleError(err);
+        }));
+  }
+
+  delete2fhskdjhf(url: string, id: any): Observable<any> {
+    if (id != null) {
+      const deleteUrl = `${url}/${id}`;
+      return this.http.delete(deleteUrl, httpOptions);
+    }
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log('dasda');
     if (error.error instanceof ErrorEvent) {
