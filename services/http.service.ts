@@ -27,7 +27,7 @@ export class HttpService {
       }));
   }
 
-  async fetchData(url: string): Promise<any> {
+  async fetchDataREQ(url: string): Promise<any> {
     const result = this.http.get(url).toPromise();
     return result;
   }
