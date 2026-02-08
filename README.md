@@ -1,3 +1,4 @@
 # pasha
 test
 sanity
+wired
