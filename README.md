@@ -2,3 +2,5 @@
 test
 dasdasd
 dasdas
+
+cache check prod
