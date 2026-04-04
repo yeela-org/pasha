@@ -27,13 +27,29 @@ export class HttpService {
       }));
   }
 
+  post2(url: string, data: any): Observable<any> {
+    console.log('Posting to:', endpointUrl);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError((err) => {
+          return this.handleError(err);
+        }));
+  }
+
+  delete2fhskdjhf(url: string, id: any): Observable<any> {
+    if (id != null) {
+      const deleteUrl = `${url}/${id}`;
+      return this.http.delete(deleteUrl, httpOptions);
+    }
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log('dasda');
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occured
       console.error('An error occurred:', error.message);
     } else {
-      // The backend returned an unsuccessful response code.
+      // The backend returned an unsuccessful response code. fshkfhskf
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.message}`);
@@ -43,5 +59,3 @@ export class HttpService {
   };
   
 }
-//dasdassfsdfsdfsdfdsdsaadsadfsfsd
-//ewewdsdasdsasasadsdsdasdasdasdas
