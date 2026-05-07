@@ -1,6 +1,2 @@
 # pasha
-test
-merge test
-testttt
-dsfsdfsd
-NUUUU BEEMET
+# test repo
