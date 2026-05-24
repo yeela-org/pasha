@@ -1,0 +1,14 @@
+# .git-blame-ignore-revs
+#
+# Commits ignored by `git blame --ignore-revs-file=.git-blame-ignore-revs`
+# and (after LINBEE-23893) by gitStream's code-expert calculations.
+# Each entry: one full 40-char commit SHA, optional `# comment` lines.
+
+# Dependabot version bumps - mechanical edits, no real authorship
+b68c4abb2be07e9aa068a234e22871b56fef0f2f
+8a3314e1042af4f327befd5f2daabca54e3ef6ad
+210450aba5ea6a7ba81e43aa0c6014be33ad277f
+8e0d2d5c3f62a44c01ffc5768f20b686be579d83
+ed5d52489ca293b8a24138814ae9d46d865fa87b
+58dd71bf440e34c0bbce615c24fcc553c6c48238
+d112815520077dc66e829a0772246e9979d0bafd
