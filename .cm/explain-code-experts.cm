@@ -10,7 +10,7 @@ automations:
       - pr_ready_for_review
       - commit
     if:
-      - {{ pr.labels | match(term='suggest-reviewer') | some }}
+      - true
     run:
       - action: explain-code-experts@v1
         args:
