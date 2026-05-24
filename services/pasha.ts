@@ -1,4 +1,4 @@
-export async function callAgentService(payload: object):<any> {
+export async function callAgentServicePasha(payload: object):<any> {
   const url = "https://dummy-pr-agent.com/api/review";
 
   console.debug("Sending payload to agent:", payload);
