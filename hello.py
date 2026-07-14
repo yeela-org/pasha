@@ -1,2 +1,3 @@
-def foo(a,b):                                                                                                                
-      return a+b 
+# check format
+def foo(a, b):
+      return a + b
