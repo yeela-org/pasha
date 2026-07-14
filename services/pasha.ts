@@ -13,7 +13,7 @@ export async function callAgentService(payload: object):<any> {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
+      const errorText = response.text();
       throw new Error(`Request failed with status ${response.status}: ${errorText}`);
     }
 
