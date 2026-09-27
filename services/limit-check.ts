@@ -1,0 +1,10 @@
+export const limitCheck_1 = (x: number): number => x * 1 + 1;
+export const limitCheck_2 = (x: number): number => x * 2 + 1;
+export const limitCheck_3 = (x: number): number => x * 3 + 1;
+export const limitCheck_4 = (x: number): number => x * 4 + 1;
+export const limitCheck_5 = (x: number): number => x * 5 + 1;
+export const limitCheck_6 = (x: number): number => x * 6 + 1;
+export const limitCheck_7 = (x: number): number => x * 7 + 1;
+export const limitCheck_8 = (x: number): number => x * 8 + 1;
+export const limitCheck_9 = (x: number): number => x * 9 + 1;
+export const limitCheck_10 = (x: number): number => x * 10 + 1;
