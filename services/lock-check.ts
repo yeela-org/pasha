@@ -1,0 +1,10 @@
+export const lockCheck_1 = (x: number): number => x * 1 + 1;
+export const lockCheck_2 = (x: number): number => x * 2 + 1;
+export const lockCheck_3 = (x: number): number => x * 3 + 1;
+export const lockCheck_4 = (x: number): number => x * 4 + 1;
+export const lockCheck_5 = (x: number): number => x * 5 + 1;
+export const lockCheck_6 = (x: number): number => x * 6 + 1;
+export const lockCheck_7 = (x: number): number => x * 7 + 1;
+export const lockCheck_8 = (x: number): number => x * 8 + 1;
+export const lockCheck_9 = (x: number): number => x * 9 + 1;
+export const lockCheck_10 = (x: number): number => x * 10 + 1;
